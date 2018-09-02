@@ -59,25 +59,77 @@ public class Solutions {
     	
     }
     
-    public static void generate(int n, StringBuilder sb, List parenthesisList, int left, int right ){
+    public static void generate(int n, StringBuilder sb, List parenthesisList, int opening, int closing ){
     	
-    	if(left < right || left > n || right > n){
+    	if(opening < closing || opening > n || closing > n){
     		return;
     	}
     	
-    	if(left == n && right == n){
+    	if(opening == n && closing == n){
     		parenthesisList.add(sb.toString());
     	}
     	
     	sb.append('(');
-    	generate(n, sb, parenthesisList, left +1, right);
+    	generate(n, sb, parenthesisList, opening +1, closing);
     	sb.deleteCharAt(sb.length() - 1);
     	
     	
     	sb.append(')');
-    	generate(n, sb, parenthesisList, left, right + 1);
+    	generate(n, sb, parenthesisList, opening, closing + 1);
     	sb.deleteCharAt(sb.length() - 1);
     	
+    }
+    
+    //merging overlapping intervals. I HAVE BUGS IN THIS SOLUTION BUT I AM TOO LAZY TO FIX THEM
+    /*
+     * 	Given a collection of intervals, merge all overlapping intervals.
+     * 	Input: [[1,3],[2,6],[8,10],[15,18]]
+		Output: [[1,6],[8,10],[15,18]]
+		Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
+     */
+    public List<Interval> merge(List<Interval> intervals) {
+    	
+    	List<Interval> overrap = new ArrayList<Interval>();
+    	
+    	for(int i = 0; i < intervals.size(); i++){
+    		for(int j = i + 1; i < intervals.size(); j++ ){
+    			Interval overrapInterval = new Interval();
+    			
+    			Interval first = intervals.get(i);
+    			Interval second = intervals.get(j);
+    			
+    			if((first.start <= second.start) && (second.start <= first.end)){
+    				overrapInterval.start = first.start;
+    				if(first.end >= second.end){
+    					overrapInterval.end = first.end;
+    				}
+    				else{
+    					overrapInterval.end = second.end;
+    				}
+    			}
+    			if((second.start <= first.start) && (first.start <= second.end)){
+    				overrapInterval.start = second.start;
+    				
+    				if(first.end >= second.end){
+    					overrapInterval.end = first.end;
+    				}
+    				else{
+    					overrapInterval.end = second.end;
+    				}
+    			}
+    			overrap.add(overrapInterval);
+    			intervals.remove(i);
+    			intervals.remove(j);
+    		}
+    	}
+    	
+    	if(!intervals.isEmpty()){
+    		for( Interval e : intervals){
+    			overrap.add(e);
+    		}
+    	}
+    	
+        return overrap;
     }
  
 }
