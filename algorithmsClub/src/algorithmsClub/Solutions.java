@@ -131,5 +131,36 @@ public class Solutions {
     	
         return overrap;
     }
- 
+    
+    public int[] plusOne(int[] digits) {
+    	
+
+        StringBuilder digit = new StringBuilder("");
+    	
+    	for(int number: digits){
+    		digit.append(number);
+    	}
+    	
+    	String convertedDigits = digit.toString();
+    	
+    	int convertedInt = Integer.parseInt(convertedDigits) + 1;
+    	
+    	StringBuilder sb = new StringBuilder("");
+        sb.append(convertedInt);
+    	String newSb = sb.toString();
+    	
+    	int [] finalArray = new int[newSb.length()];
+    	
+    	for(int i = 0; i < newSb.length(); i++){
+            
+    		finalArray[i] = Character.getNumericValue(newSb.charAt(i));
+            //Character.getNumericValue(x);
+    	}
+    		
+    	
+    	
+    	return finalArray;
+    
+        
+    }
 }
