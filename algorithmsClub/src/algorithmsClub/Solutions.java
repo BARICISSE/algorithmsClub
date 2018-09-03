@@ -6,13 +6,16 @@ public class Solutions {
 	public static void main(String [] args){
 		
 		int[] arr1 = {1,2,3,4};
-		int [] arr2 = {2, 3, 4, 6, 7};
+		int [] arr2 = {2, 3, 4, 8, 7};
 		double median = findMedianSortedArrays(arr1,arr2);
 		
 		List<String> y = generateParenthesis(3);
 		
 		System.out.println("median is " + y);
 		
+		int x = findPeakElement(arr2);
+		
+		System.out.println("peak  is " + x);
 		
 		
 	}
@@ -132,6 +135,14 @@ public class Solutions {
         return overrap;
     }
     
+    /*
+     * Given a non-empty array of digits representing a non-negative integer, plus one to the integer.
+     * 	Input: [1,2,3]
+		Output: [1,2,4]
+		Input: [9]
+		Output: [1,0]
+     */
+    
     public int[] plusOne(int[] digits) {
     	
 
@@ -163,4 +174,27 @@ public class Solutions {
     
         
     }
+    
+    /*
+     * finding an index of a peak element
+     * A peak element is an element that is greater than its neighbors.
+     */
+    public static int findPeakElement(int[] nums) {
+        
+        int peakIndex = 0;
+        
+        int index = 1;
+        
+        while(index < nums.length -1){
+        	if((nums[index] > nums[index - 1]) && (nums[index] > nums[index + 1])){
+        		peakIndex = index;
+        	}
+        	
+        	index ++;
+        }
+        
+        
+        return peakIndex;
+    }
+    
 }
