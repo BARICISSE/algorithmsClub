@@ -264,7 +264,21 @@ public class Solutions {
         
     }
 	
+	//third max number in from an array of integers
 	public int thirdMax(int[] nums) {
+		int thirdMax = nums[0];
+		Arrays.sort(nums);
 		
+		int n = 1;
+		for( int index = nums.length - 1; index > 0; index-- ){
+			if(nums[index] != nums[index -1]){
+				if(++n == 3){
+					return nums[index-1];
+				}
+				
+			}
+		}
+		
+		return nums[nums.length -1];
 	}
 }
