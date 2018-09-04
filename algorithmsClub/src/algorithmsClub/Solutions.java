@@ -6,17 +6,17 @@ public class Solutions {
 
 	public static void main(String [] args){
 
-		int[] arr1 = {1,2,3,4};
-		int [] arr2 = {2, 3, 4, 8, 7};
+		int[] arr1 = {3, 10, 5, 25, 2, 8};
+		int [] arr2 = {73, 74, 75, 71, 69, 72, 76, 73};
 		double median = findMedianSortedArrays(arr1,arr2);
 
 		List<String> y = generateParenthesis(3);
 
-		System.out.println("median is " + y);
+		System.out.println("maxXOR is " + findMaximumXOR(arr1));
 
 		int x = findPeakElement(arr2);
 
-		System.out.println("peak  is " + x);
+		
 
 
 		LinkedList<Integer> list = new LinkedList<Integer>();
@@ -28,7 +28,7 @@ public class Solutions {
 
 		LinkedList<Integer> newList = removeDuplicates(list);
 
-		System.out.println(list);
+		System.out.println(Arrays.toString(dailyTemperatures(arr2).toArray()));
 
 
 	}
@@ -281,4 +281,66 @@ public class Solutions {
 		
 		return nums[nums.length -1];
 	}
+	
+	/*
+	 * Maximum XOR of Two Numbers in an Array
+	 * Given a non-empty array of numbers, a0, a1, a2, … , an-1, where 0 ≤ ai < 231.
+
+		Find the maximum result of ai XOR aj, where 0 ≤ i, j < n.
+	 */
+	//TRY RUNNING THIS IN O(n). currently i m running it in O(n^2) and nlogn best case
+	public static int findMaximumXOR(int[] nums) {
+        int max = 0;
+        
+        for(int i = 0; i < nums.length; i++){
+        	for(int j = i +1; j < nums.length; j++){
+        		
+        		int foundXOR = nums[i] ^nums[j];
+        		
+        		if(foundXOR > max){
+        			max = foundXOR;
+        		}
+        	}
+        }
+        
+        return max;
+    }
+	
+	/*
+	 * Given a list of daily temperatures, produce a list that, for each day in the input,
+	 *  tells you how many days you would have to wait until a warmer temperature. 
+	 *  If there is no future day for which this is possible, put 0 instead.
+	 *  For example, given the list temperatures = [73, 74, 75, 71, 69, 72, 76, 73], your output should be [1, 1, 4, 2, 1, 1, 0, 0].
+	 */
+	public static List<Integer> dailyTemperatures(int[] temperatures) {
+		List<Integer> daysToWait = new ArrayList<Integer>();
+		
+		for(int i = 0; i < temperatures.length; i++){
+			int counter = 0;
+			int index = i + 1;
+			
+			while(temperatures[index] <= temperatures[i]  && index < temperatures.length){
+				index ++;
+			}
+			
+			counter = index -i;
+			
+			if(index == temperatures.length){
+				counter = 0;
+			}
+			daysToWait.add(counter);
+		}
+		
+		return daysToWait;
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
