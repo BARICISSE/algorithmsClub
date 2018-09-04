@@ -17,17 +17,17 @@ public class Solutions {
 		int x = findPeakElement(arr2);
 
 		System.out.println("peak  is " + x);
-		
-		
+
+
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		list.add(2);
 		list.add(3);
 		list.add(4);
 		list.add(4);
 		list.add(2);
-		
+
 		LinkedList<Integer> newList = removeDuplicates(list);
-		
+
 		System.out.println(list);
 
 
@@ -209,33 +209,62 @@ public class Solutions {
 
 		return peakIndex;
 	}
-	
-	//removing duplicates from a linkedlist
-		public static LinkedList<Integer> removeDuplicates(LinkedList<Integer> list ){
-			
-			for(int i = 0; i < list.size(); i++){
-				for(int j = i+1; j <list.size(); j++){
-					if(list.get(i) == list.get(j)){
-						list.remove(j);
-					}
+
+	//removing duplicates from a linkedList
+	public static LinkedList<Integer> removeDuplicates(LinkedList<Integer> list ){
+
+		for(int i = 0; i < list.size(); i++){
+			for(int j = i+1; j <list.size(); j++){
+				if(list.get(i) == list.get(j)){
+					list.remove(j);
 				}
 			}
-			
-			return list;
-			
-		}
-		
-		//print kth to last elements of a linkedlist
-		public static int findKthToLast(SNode list, int k){
-			if(list == null){
-				return 0;
-			}
-			int index = findKthToLast(list.next, k) +1;
-			if(index == k){
-				System.out.println(list.element);
-			}
-			
-			return index;
 		}
 
+		return list;
+
+	}
+
+	//print nth to last elements of a linkedList
+	public static int findKthToLast(SNode list, int k){
+		if(list == null){
+			return 0;
+		}
+		int index = findKthToLast(list.next, k) +1;
+		if(index == k){
+			System.out.println(list.element);
+		}
+
+		return index;
+	}
+
+	//is power of 3
+	//return true if an integer is a power of 3 and false if it is not
+	public boolean isPowerOfThree(int n) {
+		while((n > 2) && (n % 3 ==0)){
+			n /= 3;
+		}
+		return n == 1;
+
+	}
+	
+	//searching a 2D array
+	public boolean searchMatrix(int[][] matrix, int target) {
+		boolean isAvailable = false;
+		
+		for(int i = 0; i < matrix.length; i++){
+			for(int index = 0; index < matrix[i].length; index++){
+				if(matrix[i][index] == target){
+					isAvailable = true;
+				}
+			}
+		}
+				
+		return isAvailable;		
+        
+    }
+	
+	public int thirdMax(int[] nums) {
+		
+	}
 }
