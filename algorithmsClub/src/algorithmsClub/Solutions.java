@@ -312,6 +312,7 @@ public class Solutions {
 	 *  If there is no future day for which this is possible, put 0 instead.
 	 *  For example, given the list temperatures = [73, 74, 75, 71, 69, 72, 76, 73], your output should be [1, 1, 4, 2, 1, 1, 0, 0].
 	 */
+	//THERE IS AN indexOutOfBoundsException in this method
 	public static List<Integer> dailyTemperatures(int[] temperatures) {
 		List<Integer> daysToWait = new ArrayList<Integer>();
 		
@@ -334,9 +335,67 @@ public class Solutions {
 		return daysToWait;
     }
 	
+	/*
+	 * Suppose Andy and Doris want to choose a restaurant for dinner, and they both have a list of favorite restaurants represented by strings.
+	 * 	You need to help them find out their common interest with the least list index sum. If there is a choice tie between answers, 
+	 * output all of them with no order requirement. You could assume there always exists an answer.
+	 */
 	
+	public String[] findRestaurant(String[] list1, String[] list2) {
+        List<String> restaurantsList = new ArrayList<String>();
+        
+        for(int i = 0; i < list1.length; i++){
+        	if(contains(list2, list1[i])){
+        		restaurantsList.add(list1[i]);
+        		
+        	}
+        	
+        }
+        for(int j = 0; j < restaurantsList.size() -1;  j++){
+        	int firstIndex = getIndex(list1, restaurantsList.get(j)) -getIndex(list2, restaurantsList.get(j));
+        	int secondIndex = getIndex(list1, restaurantsList.get(j +1)) -getIndex(list2, restaurantsList.get(j +1));
+        	
+        	if(Math.abs(firstIndex) > Math.abs(secondIndex)){
+        		restaurantsList.remove(j);
+        	}
+        	if(Math.abs(firstIndex) < Math.abs(secondIndex)){
+        		restaurantsList.remove(j + 1);
+        	}
+        	
+        }
+        
+        String [] restArray = new String[restaurantsList.size()];
+        restArray = restaurantsList.toArray(restArray);
+        
+        return restArray;
+    }
 	
+	//Helper method to check if an array contains a certain string
+	public static boolean contains( String [] array, final String v) {
+
+        boolean result = false;
+
+        for(String i : array){
+            if(i == v){
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
 	
+	//helper method to retrieve indices
+	public static int getIndex(String[] arr,String restaurant ){
+		int index = 0;
+		for(int i = 0; i < arr.length; i++){
+			if(arr[i] == restaurant){
+				index = i;
+				break;
+			}
+		}
+		return index;
+	}
 	
 	
 	
