@@ -396,8 +396,43 @@ public class Solutions {
 		}
 		return index;
 	}
+	public List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> dissapearedNumbers = new ArrayList<Integer>();
+        
+        for(int i = 0; i < nums.length; i++) {
+        	
+            int value = Math.abs(nums[i]) - 1;
+            
+            if(nums[value] > 0) {
+            	
+                nums[value] = -nums[value];
+            }
+        }
+        
+        for(int index = 0; index < nums.length; index++) {
+        	
+            if(nums[index] > 0) {
+            	
+                dissapearedNumbers.add(index+1);
+            }
+        }
+        return dissapearedNumbers;
+    }
 	
 	
+	public List<Integer> findDuplicates(int[] nums) {
+		
+	    List<Integer> duplicates = new ArrayList<>();
+	    
+	    for (int i = 0; i < nums.length; ++i) {
+	    	
+	        int in = Math.abs(nums[i])-1;
+	        if (nums[in] < 0)
+	            duplicates.add(Math.abs(in+1));
+	        nums[in] = -nums[in];
+	    }
+	    return duplicates;
+	}
 	
 	
 	
